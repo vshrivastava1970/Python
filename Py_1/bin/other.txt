@@ -1,0 +1,103 @@
+jupyter=>
+
+Note: JPython >> to support java
+
+================ ML [sciket_learn for supervised ML] ==============
+import sklearn
+from sklearn.datasets import load_iris
+iris = load_iris()
+print(iris.data)
+print(iris.target)
+print(iris.target_names)
+print(iris.data.size)
+print(iris.target.size)
+
+from sklearn.neighbors import KNeighborsClassifier
+knn1 = KNeighborsClassifier(n_neighbors = 1)
+X = iris.data
+Y = iris.target
+knn1.fit(X,Y)
+L = [[3,5,4,2]]
+knn1.predict(L)
+L = [[3,5,4,2], [5,4,3,2]]
+knn1.predict(L)
+
+from sklearn import metrics
+y_pred = knn1.predict(X)
+accuracy = metrics.accuracy_score(Y, y_pred)
+print('acc-knn-1=',accuracy)
+
+from sklearn.linear_model import LogisticRegression
+lr = LogisticRegression()
+lr.fit(X,Y)
+L = [[3,5,4,2]]
+lr.predict(L)
+
+kv = range(1, 25)
+scors = []
+for i in kv:
+    knn = KNeighborsClassifier(n_neighbors=i)
+    knn.fit(X, Y)
+    y_pred = knn.predict(X)
+    acc = metrics.accuracy_score(Y, y_pred)
+    scors.append(acc)
+
+import matplotlib.pyplot as plt
+%matplotlib inline
+plt.plot(kv, scors)
+
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.4)
+print(len(x_train))
+print(len(y_test))
+lr = LogisticRegression()
+lr.fit(x_train, y_train)
+y_pred = lr.predict(x_test)
+print(y_pred)
+y_pred_accuracy = metrics.accuracy_score(y_test, y_pred)
+print(y_pred_accuracy)
+============================================
+========== numpy ============
+
+import numpy as np
+
+a = np.array([10,20,30])
+a
+a = np.array([[1,2,3],[4,5,6]])
+a
+a= np.array([1,2,3,4], ndmin=2, dtype=float)
+a
+a = np.array([10,20,30])
+a.itemsize
+a = np.ones(5)
+a
+a = np.zeros(5)
+a
+a = np.asarray([1,2,3,4])
+a[1]
+a = np.arange(10)
+a
+
+a = np.array([[1,2],[3,4],[5,6]])
+a[...,1]
+a[1:]
+a[1, ...]
+a[...,1:]
+a[a>2]
+b = np.array([[6,7],[8,9],[3,7]])
+a+b
+a.T
+for x in np.nditer(a):
+    print('x=', x)
+np.split(a, 3)
+np.mean(a)
+np.std(a)
+C = np.arange(1,10)
+D = np.arange(1, 10)
+
+import matplotlib.pyplot as plt
+%matplotlib inline
+plt.plot(C, D)
+
+E = np.array([30,60,90])
+np.sin(E)
